@@ -1,0 +1,182 @@
+EXP_3 
+DDL Commands & Integrity Constraints
+
+1) Create Table
+
+-- Create the Company database
+CREATE DATABASE Company;
+
+-- Use the Company database
+USE Company;
+
+-- Create the Employees table
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Age INT,
+    Department VARCHAR(100)
+);
+
+
+2)   insert - inserting the data - DML
+
+-- Insert sample data into the Employees table
+INSERT INTO Employees (Name, Age, Department) VALUES
+('John Doe', 35, 'Finance'),
+('Jane Smith', 28, 'Human Resources'),
+('Michael Johnson', 42, 'Marketing'),
+('Emily Brown', 30, 'IT'),
+('David Lee', 38, 'Operations');
+  
+3)   select - to display the updated table
+
+-- Select all columns from the Employees table
+SELECT * FROM Employees;
+
+4)    update - update the existing column
+
+-- Update the age of employee "John Doe" to 36
+UPDATE Employees
+SET Age = 36
+WHERE Name = 'John Doe';
+
+5) ALTER TABLE
+
+5.1)
+
+Adding a Column: You might need to add a new column to your table to accommodate new requirements or data.
+
+-- Add a new column 'Salary' to the Employees table
+ALTER TABLE Employees
+ADD Salary DECIMAL(10, 2);
+
+5.2)
+
+Updating Data: You can use the ALTER TABLE statement in conjunction with UPDATE to modify existing data in a table, although this isn't the primary purpose of ALTER TABLE.
+
+-- Example of updating data using UPDATE statement
+UPDATE Employees
+SET Salary = 50000
+WHERE Name = 'John Doe';
+
+
+5.3) 
+
+Removing a Specific Column: If you no longer need a column in your table, you can remove it using the DROP COLUMN clause.
+
+-- Remove the 'Department' column from the Employees table
+ALTER TABLE Employees
+DROP COLUMN Department;
+
+5.4) 
+
+Modifying Data Types or Constraints: You can also use ALTER TABLE to modify existing columns, such as changing their data types or adding constraints.
+
+-- Modify the data type of the 'Age' column to accept NULL values
+ALTER TABLE Employees
+ALTER COLUMN Age INT NULL;
+
+
+6) RENAME TABLE / column
+
+6.1) 
+Rename Column Name: 
+
+-- Rename the 'Age' column to 'Employee_Age' in the Employees table
+ALTER TABLE Employees
+RENAME COLUMN Age TO Employee_Age;
+
+
+6.2)  
+Rename Table Name:
+
+-- Rename the Employees table to Staff
+ALTER TABLE Employees
+RENAME TO Staff;
+
+7)
+7.1) 
+TRUNCATE TABLE:
+
+-- Truncate all records from the Employees table
+TRUNCATE TABLE Employees;
+
+7.2)
+ specific column to NULL
+
+UPDATE Employees
+SET Salary = NULL;
+
+8)
+
+ drop - drop/delete the entire table with structure
+
+
+-- Drop the Employees table
+DROP TABLE Employees;
+
+
+
+9) Integrety Constraints -
+
+9.1)
+
+Adding a Primary Key After Table Creation:
+
+-- Add a primary key constraint to the ID column after table creation
+ALTER TABLE Employees
+ADD PRIMARY KEY (ID);
+
+9.2) 
+
+Setting NOT NULL for a Column:
+
+-- Set the Name column to NOT NULL
+ALTER TABLE Employees
+MODIFY Name VARCHAR(100) NOT NULL;
+
+9.3)
+
+Setting NULL Value:
+
+
+-- Set the Department column to allow NULL values
+ALTER TABLE Employees
+MODIFY Department VARCHAR(100);
+
+
+9.4)
+
+Setting Unique Key:
+
+-- Add a unique constraint to the Email column
+ALTER TABLE Employees
+ADD CONSTRAINT unique_email UNIQUE (Email);
+
+
+9.5)
+Setting Foreign Key:
+
+-- Add a foreign key constraint to the DepartmentID column referencing the Departments table
+ALTER TABLE Employees
+ADD CONSTRAINT fk_department_id FOREIGN KEY (DepartmentID) REFERENCES Departments(ID);
+
+
+9.6)
+
+Adding Integrity Constraints at the Same Time:
+
+-- Add a primary key constraint to the ID column and a foreign key constraint to the DepartmentID column referencing the Departments table
+ALTER TABLE Employees
+ADD CONSTRAINT pk_employee_id PRIMARY KEY (ID),
+ADD CONSTRAINT fk_department_id FOREIGN KEY (DepartmentID) REFERENCES Departments(ID);
+
+
+
+
+
+
+
+
+
+

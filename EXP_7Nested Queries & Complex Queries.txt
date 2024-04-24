@@ -1,0 +1,85 @@
+EXP_7
+Nested Queries & Complex Queries
+
+-- Creating tables
+CREATE TABLE Dept (
+    D_id INT(10),
+    D_name CHAR(50),
+    PRIMARY KEY (D_id)
+);
+
+CREATE TABLE Emp (
+    role CHAR(30),
+    e_id INT(10),
+    e_name CHAR(50),
+    d_id INT(10),
+    sal INT(20),
+    PRIMARY KEY (e_id),
+    FOREIGN KEY (d_id) REFERENCES Dept(D_id)
+);
+
+CREATE TABLE Sales (
+    S_id INT(10),
+    S_amt INT(30),
+    e_id INT(10), -- Added the e_id column
+    FOREIGN KEY (e_id) REFERENCES Emp(e_id)
+);
+
+CREATE TABLE Awards (
+    id INT(10),
+    e_id INT(10), -- Added the e_id column
+    FOREIGN KEY (e_id) REFERENCES Emp(e_id)
+);
+
+-- Inserting data
+INSERT INTO Dept (D_id, D_name) VALUES
+(1, 'Sales'),
+(2, 'Marketing'),
+(3, 'Finance');
+
+INSERT INTO Emp (role, e_id, e_name, d_id, sal) VALUES
+('Developer', 1, 'John', 1, 10000),
+('Manager', 2, 'Mary', 2, 10000),
+('Developer', 3, 'Bob', 1, 30000),
+('Manager', 4, 'Alice', 3, 40000),
+('Developer', 5, 'Tom', 1, 50000);
+
+INSERT INTO Sales (S_id, S_amt, e_id) VALUES
+(1, 1000, 1),
+(2, 2000, 2),
+(3, 3000, 3),
+(4, 4000, 1),
+(5, 5000, 5),
+(6, 6000, 3),
+(7, 7000, 2);
+
+INSERT INTO Awards (id, e_id) VALUES
+(1, 1),
+(2, 3);
+
+-- Displaying data
+SELECT * FROM Emp;
+SELECT * FROM Sales;
+SELECT * FROM Awards;
+
+-- Nested queries
+-- Find the names of all the employees in the sales department
+SELECT e_name FROM Emp WHERE d_id IN (SELECT D_id FROM Dept WHERE D_name = 'Sales');
+
+-- Select names of all employees who have a sale amount over 4000
+SELECT e_name FROM Emp WHERE e_id IN (SELECT e_id FROM Sales WHERE S_amt > 4000);
+
+-- Find all the employee names who are handled by the finance department
+SELECT e_name FROM Emp WHERE d_id = (SELECT D_id FROM Dept WHERE D_name = 'Finance');
+
+-- Find all the employee names who have received awards
+SELECT e_name FROM Emp WHERE e_id IN (SELECT e_id FROM Awards);
+
+-- Find all the employee names who have never received awards
+SELECT e_name FROM Emp WHERE e_id NOT IN (SELECT e_id FROM Awards);
+
+-- Select all developers who earn more than all managers
+SELECT * FROM Emp WHERE role = 'Developer' AND sal > ALL (SELECT sal FROM Emp WHERE role = 'Manager');
+
+-- Select all developers who earn more than any managers
+SELECT * FROM Emp WHERE role = 'Developer' AND sal > ANY (SELECT sal FROM Emp WHERE role = 'Manager');

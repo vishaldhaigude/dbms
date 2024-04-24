@@ -1,0 +1,59 @@
+EXP_4
+DML Commands for specified system
+
+DML Commands = create , delete , update , Read..!
+
+Create Table:
+code:
+
+	-- Create the Employees table
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(100) NOT NULL,
+    Age INT,
+    Department VARCHAR(100)
+);
+
+
+1) SELECT: Retrieves data from one or more tables based on specified criteria.
+	
+
+SQL:
+
+	-- Example: Retrieve all columns from the "Employees" table
+	SELECT * FROM Employees;
+
+	-- Example: Retrieve specific columns from the "Employees" table
+	SELECT Name, Age FROM Employees;
+
+	-- Example: Retrieve data from multiple tables using JOIN
+	SELECT Employees.Name, Departments.DepartmentName
+	FROM Employees
+	INNER JOIN Departments ON Employees.DepartmentID = Departments.ID;
+
+2) INSERT: Adds new records into a table.
+
+SQL: 
+	-- Example: Insert a new employee record into the "Employees" table
+I	NSERT INTO Employees (Name, Age, DepartmentID) VALUES ('John Doe', 35, 3);
+
+
+3) UPDATE: Modifies existing records in a table.
+
+SQL: 
+	-- Example: Update the age of an employee named "John Doe" in the "Employees" table
+	UPDATE Employees SET Age = 36 WHERE Name = 'John Doe';
+	SELECT * FROM Employees;
+
+
+4) DELETE: Removes records from a table based on specified criteria.
+SQL: 
+	-- Example: Delete an employee record from the "Employees" table
+	DELETE FROM Employees WHERE Name = 'John Doe';
+	
+	SELECT * FROM Employees;
+
+
+
+
+	

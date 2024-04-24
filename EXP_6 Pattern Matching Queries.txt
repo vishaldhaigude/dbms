@@ -1,0 +1,62 @@
+EXP_6
+Pattern Matching Queries
+
+
+SQL::
+
+-- Create the Emp table
+CREATE TABLE Emp (
+    id INT(20),
+    Name VARCHAR(50),
+    city CHAR(20),
+    salary INT(50),
+    age INT(50)
+);
+
+-- Insert data into the Emp table
+INSERT INTO Emp (id, Name, city, salary, age) VALUES 
+    (1, 'Priyank S', 'Nashik', 26000, 20),
+    (2, 'Riya S', 'Mumbai', 72000, 28),
+    (3, 'Neha V', 'Varanasi', 37000, 19),
+    (4, 'Neeta Desai', 'Nashik', 395000, 21),
+    (5, 'Priya Wagh', 'Udaipur', 60000, 22);
+
+-- Display all records in the Emp table
+SELECT * FROM Emp;
+
+-- Pattern matching queries
+-- Find all employees whose name starts with 'P'
+SELECT * FROM Emp WHERE Name LIKE 'P%';
+
+-- Find all employees whose name ends with 'V'
+SELECT * FROM Emp WHERE Name LIKE '%V';
+
+-- Find all employees whose name contains 'ta'
+SELECT * FROM Emp WHERE Name LIKE '%ta%';
+
+-- Find all employees whose city name has 6 characters
+SELECT * FROM Emp WHERE city LIKE '______';
+
+-- Find all employees whose city name has 'an' in the third and fourth position
+SELECT * FROM Emp WHERE city LIKE '_an%';
+
+-- Find all employees whose name contains 'de' anywhere
+SELECT * FROM Emp WHERE Name LIKE '%de%';
+
+-- Find all employees whose salary contains '50' anywhere
+SELECT * FROM Emp WHERE salary LIKE '%50%';
+
+-- Find all employees whose city name starts with 'Na' followed by exactly two characters and ends with 'ik'
+SELECT * FROM Emp WHERE city LIKE 'Na__ik';
+
+-- Find all employees whose salary starts with '3' followed by exactly two characters
+SELECT * FROM Emp WHERE salary LIKE '3__00';
+
+-- Find all employees whose name has exactly three characters followed by 'a' and then any characters
+SELECT * FROM Emp WHERE Name LIKE '__a%';
+
+-- Find all employees whose salary has exactly two characters followed by '00' and then any characters
+SELECT * FROM Emp WHERE salary LIKE '__00%';
+
+-- Find all employees whose name does not start with 'Priya'
+SELECT * FROM Emp WHERE Name NOT LIKE 'Priya%';

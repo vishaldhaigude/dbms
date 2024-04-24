@@ -1,0 +1,121 @@
+EXP_5
+String Manipulation, Aggregrate Function, Group By
+ 
+Aggregrate Function, Group By
+
+
+-- Creating two new Tables
+CREATE TABLE Old_Faculty (
+    F_id INT (10) PRIMARY KEY,
+    Fname CHAR (50),
+    City CHAR (20)
+);
+
+
+CREATE TABLE New_Faculty (
+    F_id INT (10) PRIMARY KEY,
+    Fname CHAR (50),
+    City CHAR (20)
+);
+
+
+-- Inserting the values in the table
+INSERT INTO Old_Faculty(F_id, Fname, City) VALUES
+(1, 'A', 'Borivali'),
+(2, 'B', 'Vasai'),
+(3, 'C', 'Andheri');
+
+
+INSERT INTO New_Faculty(F_id, Fname, City) VALUES
+(1, 'A', 'Borivali'),
+(2, 'B', 'Malad'),
+(3, 'C', 'Andheri');
+
+
+SELECT * FROM Old_Faculty;
+
+SELECT * FROM New_Faculty;
+
+
+
+-- String Operations
+
+-- 1. Union
+SELECT * FROM Old_Faculty UNION SELECT * FROM New_Faculty;
+
+-- 2. Union All
+SELECT * FROM Old_Faculty UNION ALL SELECT * FROM New_Faculty;
+
+-- 3. Intersection
+SELECT * FROM Old_Faculty INTERSECT SELECT * FROM New_Faculty;
+
+-- 4. Minus / Except
+SELECT * FROM Old_Faculty EXCEPT SELECT * FROM New_Faculty;
+
+-- 5. ASCII value of character
+SELECT ASCII('Y');
+SELECT LEFT('yash', 2);
+SELECT RIGHT('chavan', 3);
+
+-- 6. Padding - adding characters to a string
+SELECT LPAD('Chavan', 11, 'Yash ');
+SELECT RPAD('Krisha', 13, ' Chikka ');
+SELECT RPAD('hi', 10, '?'); -- go on padding till the length
+
+-- 7. Trimming - remove the space
+SELECT LTRIM('       Yash');
+SELECT RTRIM('Yash             ');
+SELECT TRIM('       Yash        ');
+
+-- 8. Repeat
+SELECT REPEAT('MySql ', 3);
+
+-- 9. Replace
+SELECT REPLACE ('RAM', 'R', 'S');
+
+-- 10. Reverse
+SELECT REVERSE ('yash');
+
+-- Selecting a Substring
+SELECT SUBSTRING('Yash Chavan', 6); -- start from the 6th character
+SELECT SUBSTRING('beautiful', 2, 3); -- start from 2 and go till length 3
+SELECT SUBSTRING('Vidyavardhini', -2); -- start from ending second index
+SELECT SUBSTRING('Quadratically', -5, 3); -- start from -5 letter and go till length 3
+SELECT TRIM(LEADING 'x' FROM 'xxxxxxxabc'); -- advanced left trim
+SELECT TRIM(TRAILING 'x' FROM 'abcxxxxxxxxx'); -- advanced right trim
+SELECT TRIM(BOTH 'x' FROM 'xxxxxxxxxxxabcxxxxxxxxx'); -- advanced right trim
+SELECT UPPER('yashchavan'); -- converts to upper case
+SELECT LOWER('MYSQL'); -- converts to lowe case
+SELECT LENGTH('krisha is a girl'); -- gives the length of the string
+
+-- Aggregate Function
+CREATE TABLE Product (
+    id INT (10),
+    Quantity INT (10),
+    Price INT (10),
+    City CHAR (50)
+);
+
+INSERT INTO Product(id, Quantity, Price, City) VALUES 
+    (1, 4, 80, 'Mumbai'),
+    (2, 5, 100, 'Delhi'),
+    (3, 6, 70, 'Rajasthan'),
+    (2, 3, 50, 'Delhi'),
+    (3, 4, 60, 'Gujarat'),
+    (4, 2, 40, 'Haryana');
+
+SELECT * FROM Product;
+
+-- 1. Count:
+SELECT COUNT(*) FROM Product WHERE City = 'Delhi';
+
+-- 2. Sum:
+SELECT SUM(Price) FROM Product;
+SELECT SUM(Price) FROM Product WHERE id = 3;
+SELECT AVG(Price) FROM Product;
+SELECT AVG(Quantity) FROM Product WHERE id = 2;
+SELECT MIN(Price) FROM Product WHERE Quantity = 4;
+SELECT MAX(Price) FROM Product WHERE Quantity = 4;
+
+-- 3. Group By
+SELECT City, MIN(Price) FROM Product GROUP BY City;

@@ -1,0 +1,139 @@
+EXP_8 
+Functions, Cursor & Procedure
+
+FUNCTION :
+
+Creating a Function:
+
+CREATE FUNCTION calculate_tax(amount DECIMAL(10, 2)) 
+RETURNS DECIMAL(10, 2)
+BEGIN
+    DECLARE tax DECIMAL(10, 2);
+    
+    IF amount <= 1000 THEN
+        SET tax = amount * 0.1;
+    ELSE
+        SET tax = amount * 0.15;
+    END IF;
+    
+    RETURN tax;
+END;
+
+2) Using a Function:
+
+SELECT calculate_tax(1500) AS tax_amount;
+
+3) Creating a Cursor:
+
+CREATE PROCEDURE process_orders()
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE order_id INT;
+    DECLARE order_total DECIMAL(10, 2);
+    
+    DECLARE cur CURSOR FOR 
+        SELECT id, total_amount FROM orders;
+        
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN cur;
+
+    order_loop: LOOP
+        FETCH cur INTO order_id, order_total;
+        IF done THEN
+            LEAVE order_loop;
+        END IF;
+        
+        -- Process the order here
+        -- For example:
+        -- UPDATE orders SET status = 'Processed' WHERE id = order_id;
+        
+    END LOOP;
+
+    CLOSE cur;
+END;
+
+4)
+Executing a Procedure:
+CALL process_orders();
+
+
+
+
+##Step for all
+
+
+
+Sure, here are step-by-step instructions for creating and using functions, cursors, and procedures in SQL:
+
+**1. Creating a Function:**
+
+Step 1: Decide on the functionality of your function. For example, let's create a function to calculate the total amount with tax.
+
+Step 2: Determine the parameters and return type of your function. For our example, the function will take the amount as input and return the total amount with tax.
+
+Step 3: Write the SQL code to create the function. Here's a basic structure:
+
+```sql
+CREATE FUNCTION function_name(parameters)
+RETURNS return_type
+BEGIN
+    -- Function logic goes here
+END;
+```
+
+Replace `function_name`, `parameters`, `return_type`, and the logic inside `BEGIN` and `END` according to your requirements.
+
+Step 4: Test your function by calling it with sample values.
+
+**2. Using a Function:**
+
+Step 1: After creating the function, you can use it in your SQL queries like any other function.
+
+Step 2: Call the function with the appropriate parameters in your SELECT statement or any other SQL operation where you need its functionality.
+
+**3. Creating a Cursor:**
+
+Step 1: Decide on the purpose of your cursor. For example, let's create a cursor to process orders from an orders table.
+
+Step 2: Write the SQL code to create the procedure containing the cursor. Here's a basic structure:
+
+```sql
+CREATE PROCEDURE procedure_name()
+BEGIN
+    -- Declare variables and cursor
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cursor_name CURSOR FOR SELECT_statement;
+    
+    -- Cursor loop
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    OPEN cursor_name;
+    cursor_loop: LOOP
+        FETCH cursor_name INTO variables;
+        IF done THEN
+            LEAVE cursor_loop;
+        END IF;
+        -- Process each row here
+    END LOOP;
+    CLOSE cursor_name;
+END;
+```
+
+Replace `procedure_name`, `cursor_name`, `SELECT_statement`, `variables`, and the logic inside the loop according to your requirements.
+
+Step 3: Test your procedure by calling it.
+
+**4. Executing a Procedure:**
+
+Step 1: After creating the procedure, you can execute it using the CALL statement.
+
+Step 2: Write the CALL statement followed by the procedure name and any required parameters in parentheses.
+
+For example:
+```sql
+CALL procedure_name();
+```
+
+These are the general steps to create and use functions, cursors, and procedures in SQL. Make sure to adapt them to the specific requirements and syntax of your SQL database system.
+
+
